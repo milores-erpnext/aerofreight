@@ -29,9 +29,6 @@ class AeroSettings(Document):
 				
 			employees = frappe.get_all(
                 "Employee",
-                filters={
-                    "company": row.company
-                },
                 pluck="name"
             )
 			
@@ -41,7 +38,9 @@ class AeroSettings(Document):
 			assets = frappe.get_all(
                 "Asset",
                 filters={
-                    "custodian": ["in", employees]
+                    "custodian": ["in", employees],
+                    "company": row.company,
+                    "status": ["in", ["Draft", "Submitted"]]
                 },
                 pluck="name"
             )
