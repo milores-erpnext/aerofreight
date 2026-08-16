@@ -1,0 +1,235 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-08-14 10:47:13.546862",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "booking_tab",
+  "section_break_9zc4",
+  "amended_from",
+  "main_job__vessel_details_section",
+  "vessel",
+  "voyage_no",
+  "port",
+  "customer_details_section",
+  "line",
+  "line_booking_ref",
+  "customer",
+  "clients_reference",
+  "executive",
+  "booking_order_details_section",
+  "inco_term",
+  "freight_type",
+  "load_type",
+  "move_type",
+  "arrival_date",
+  "cargo_type",
+  "imco_class",
+  "imco_group",
+  "other_details_section",
+  "remarks",
+  "status",
+  "do_block_reason",
+  "notification_block_reason",
+  "routing_tab",
+  "table_gfyk",
+  "transhipment_details_section",
+  "table_ugur"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_9zc4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Import Order",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "booking_tab",
+   "fieldtype": "Tab Break",
+   "label": "Booking\ud83d\udea2"
+  },
+  {
+   "fieldname": "main_job__vessel_details_section",
+   "fieldtype": "Section Break",
+   "label": "Main Job / Vessel Details"
+  },
+  {
+   "fieldname": "vessel",
+   "fieldtype": "Data",
+   "label": "Vessel"
+  },
+  {
+   "fieldname": "voyage_no",
+   "fieldtype": "Data",
+   "label": "Voyage No"
+  },
+  {
+   "fieldname": "port",
+   "fieldtype": "Data",
+   "label": "Port"
+  },
+  {
+   "fieldname": "customer_details_section",
+   "fieldtype": "Section Break",
+   "label": "Customer Details"
+  },
+  {
+   "fieldname": "line",
+   "fieldtype": "Data",
+   "label": "Line"
+  },
+  {
+   "fieldname": "line_booking_ref",
+   "fieldtype": "Data",
+   "label": "Line Booking Ref"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "label": "Customer"
+  },
+  {
+   "fieldname": "clients_reference",
+   "fieldtype": "Data",
+   "label": "Client's Reference"
+  },
+  {
+   "fieldname": "executive",
+   "fieldtype": "Data",
+   "label": "Executive"
+  },
+  {
+   "fieldname": "booking_order_details_section",
+   "fieldtype": "Section Break",
+   "label": "Booking Order Details"
+  },
+  {
+   "fieldname": "inco_term",
+   "fieldtype": "Data",
+   "label": "INCO Term"
+  },
+  {
+   "fieldname": "freight_type",
+   "fieldtype": "Select",
+   "label": "Freight Type",
+   "options": "\nPrepaid\nCollect"
+  },
+  {
+   "fieldname": "load_type",
+   "fieldtype": "Select",
+   "label": "Load Type",
+   "options": "\nFCL/FCL"
+  },
+  {
+   "fieldname": "move_type",
+   "fieldtype": "Select",
+   "label": "Move Type",
+   "options": "\nCY/CY"
+  },
+  {
+   "fieldname": "arrival_date",
+   "fieldtype": "Date",
+   "label": "Arrival Date"
+  },
+  {
+   "fieldname": "cargo_type",
+   "fieldtype": "Select",
+   "label": "Cargo Type",
+   "options": "\nGeneral Cargo"
+  },
+  {
+   "fieldname": "imco_class",
+   "fieldtype": "Data",
+   "label": "IMCO Class"
+  },
+  {
+   "fieldname": "imco_group",
+   "fieldtype": "Data",
+   "label": "IMCO Group"
+  },
+  {
+   "fieldname": "other_details_section",
+   "fieldtype": "Section Break",
+   "label": "Other Details"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Small Text",
+   "label": "Status"
+  },
+  {
+   "fieldname": "do_block_reason",
+   "fieldtype": "Small Text",
+   "label": "DO Block Reason"
+  },
+  {
+   "fieldname": "notification_block_reason",
+   "fieldtype": "Small Text",
+   "label": "Notification Block Reason"
+  },
+  {
+   "fieldname": "routing_tab",
+   "fieldtype": "Tab Break",
+   "label": "Routing\u2693"
+  },
+  {
+   "fieldname": "table_gfyk",
+   "fieldtype": "Table",
+   "options": "Routing Table"
+  },
+  {
+   "fieldname": "transhipment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Transhipment Details"
+  },
+  {
+   "fieldname": "table_ugur",
+   "fieldtype": "Table",
+   "options": "Routing Table"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-14 11:42:17.835515",
+ "modified_by": "Administrator",
+ "module": "Aerofreight",
+ "name": "Import Order",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
