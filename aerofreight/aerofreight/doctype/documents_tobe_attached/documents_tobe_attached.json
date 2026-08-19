@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-08-07 07:51:39.122266",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_rq10",
+  "document_name",
+  "attachment",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_rq10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "document_name",
+   "fieldtype": "Select",
+   "label": "Document Name ",
+   "options": "\nTrade License\nCR Copy\nID Copy\nOther"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment "
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "label": "Remarks "
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-19 14:48:34.976731",
+ "modified_by": "Administrator",
+ "module": "Aerofreight",
+ "name": "Documents Tobe Attached",
+ "owner": "kartheek@milores.net",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

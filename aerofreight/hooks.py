@@ -189,6 +189,9 @@ doctype_js = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "aerofreight.event.get_events"
 # }
+override_whitelisted_methods = {
+	"frappe.desk.form.assign_to.add": "aerofreight.aerofreight.api.add"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,

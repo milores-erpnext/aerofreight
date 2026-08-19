@@ -1,0 +1,231 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-08-06 13:07:28.408980",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_relr",
+  "amended_from",
+  "customer_information_section",
+  "customer_name",
+  "customer_code",
+  "email",
+  "column_break_rlaa",
+  "address_html",
+  "mobile",
+  "section_break_deke",
+  "requested_credit_days",
+  "contact_email",
+  "column_break_ybyo",
+  "contact_phone",
+  "equested_credit_equested_credit__limit_optional",
+  "section_break_h7b6",
+  "customer_type",
+  "column_break_nx9w",
+  "documents_attched",
+  "section_break_khiw",
+  "method_of_confirmation_of_biz",
+  "ac_executive_details___ac_executive_details_section",
+  "name1",
+  "employee",
+  "desingation",
+  "reporting_manager_section",
+  "namee",
+  "employee_name",
+  "designation"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_relr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Credit Agreement",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "customer_information_section",
+   "fieldtype": "Section Break",
+   "label": "CUSTOMER INFORMATION"
+  },
+  {
+   "bold": 1,
+   "fieldname": "customer_name",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "customer name ",
+   "options": "Customer",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "customer_code",
+   "fieldtype": "Data",
+   "label": "customer code"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "column_break_rlaa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: !doc.__islocal",
+   "fieldname": "address_html",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "mobile",
+   "fieldtype": "Phone",
+   "label": "Mobile"
+  },
+  {
+   "fieldname": "section_break_deke",
+   "fieldtype": "Section Break",
+   "label": "Contact Person "
+  },
+  {
+   "fieldname": "requested_credit_days",
+   "fieldtype": "Data",
+   "label": "Requested credit days "
+  },
+  {
+   "fieldname": "contact_email",
+   "fieldtype": "Data",
+   "label": "Contact Email"
+  },
+  {
+   "fieldname": "column_break_ybyo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_phone",
+   "fieldtype": "Phone",
+   "label": "Contact Phone "
+  },
+  {
+   "fieldname": "equested_credit_equested_credit__limit_optional",
+   "fieldtype": "Data",
+   "label": "Requested Credit requested Credit  Limit (Optional)"
+  },
+  {
+   "fieldname": "section_break_h7b6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "customer_type",
+   "fieldtype": "Select",
+   "label": "Customer Type",
+   "options": "\nCash\nCredit"
+  },
+  {
+   "fieldname": "column_break_nx9w",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "documents_attched",
+   "fieldtype": "Table",
+   "label": "Documents Attched ",
+   "options": "Documents Tobe Attached"
+  },
+  {
+   "fieldname": "section_break_khiw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "Email, PO, WO, Sign and Stamp on the approved quotation",
+   "fieldname": "method_of_confirmation_of_biz",
+   "fieldtype": "Data",
+   "label": "Method of Confirmation of BIZ"
+  },
+  {
+   "bold": 1,
+   "fieldname": "ac_executive_details___ac_executive_details_section",
+   "fieldtype": "Section Break",
+   "label": "A/C EXECUTIVE DETAILS"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name "
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "desingation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "reporting_manager_section",
+   "fieldtype": "Section Break",
+   "label": "Reporting Manager"
+  },
+  {
+   "fieldname": "namee",
+   "fieldtype": "Data",
+   "label": "Namee"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-19 14:48:24.878886",
+ "modified_by": "Administrator",
+ "module": "Aerofreight",
+ "name": "Credit Agreement",
+ "owner": "kartheek@milores.net",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
