@@ -1,0 +1,13 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Asset",
+  "enabled": 1,
+  "modified": "2026-08-21 00:15:23.092722",
+  "module": "Aerofreight",
+  "name": "QR Code",
+  "script": "frappe.ui.form.on('Asset', {\r\n    refresh: function(frm) {\r\n        // Only run after the Asset record has been created/saved\r\n        if (!frm.is_new()) {\r\n            \r\n            // 1. Build full URL for this specific Asset\r\n            let asset_url = window.location.origin + '/app/asset/' + frm.doc.name;\r\n\r\n            // 2. Load external QRCode library dynamically if not loaded\r\n            if (typeof QRCode === 'undefined') {\r\n                frappe.require('https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js', function() {\r\n                    render_asset_qr(frm, asset_url);\r\n                });\r\n            } else {\r\n                render_asset_qr(frm, asset_url);\r\n            }\r\n        }\r\n    }\r\n});\r\n\r\nfunction render_asset_qr(frm, url) {\r\n    // 3. Target your custom HTML field: 'custom_qr_code'\r\n    let wrapper = frm.get_field('custom_qr_code').$wrapper;\r\n    \r\n    // Render HTML container\r\n    wrapper.html(`\r\n        <div style=\"margin-top: 10px; text-align: left;\">\r\n            <div id=\"qrcode_container\"></div>\r\n            <p style=\"font-size: 11px; color: #8d99a6; margin-top: 5px;\">\r\n                Scan to open asset page\r\n            </p>\r\n        </div>\r\n    `);\r\n\r\n    // 4. Generate QR code SVG/Canvas\r\n    new QRCode(document.getElementById(\"qrcode_container\"), {\r\n        text: url,\r\n        width: 128,\r\n        height: 128,\r\n        colorDark : \"#000000\",\r\n        colorLight : \"#ffffff\",\r\n        correctLevel : QRCode.CorrectLevel.H\r\n    });\r\n}",
+  "view": "Form"
+ }
+]
