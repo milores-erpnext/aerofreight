@@ -243,6 +243,13 @@ override_whitelisted_methods = {
 # 	}
 # ]
 
+fixtures = [
+    {
+        "dt": "Client Script",
+        "filters": [["module", "=", "Aerofreight"]]
+    }
+]
+
 # Authentication and authorization
 # --------------------------------
 
