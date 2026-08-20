@@ -1,0 +1,7 @@
+<p> {{ _("Hey {0}").format(doc.parent) }} </p>
+<br>
+<p> {{ _("Your KYC document ({0}) is set to expire on {1}.").format(doc.kyc_document_type, frappe.utils.format_date(doc.kyc_expiry_date, "medium")) }} </p>
+<br>
+<p> {{ _("Please upload/submit your updated KYC document to ensure uninterrupted service.") }} </p>
+<br>
+<p> {{ _("Thank you for your cooperation.") }} </p>
