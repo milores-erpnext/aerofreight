@@ -1,0 +1,35 @@
+{
+ "attach_files": "",
+ "attach_print": 0,
+ "channel": "Email",
+ "condition": "doc.status==\"Accepted\"",
+ "condition_type": "Python",
+ "creation": "2026-08-23 11:07:11.229640",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Job Applicant",
+ "enabled": 1,
+ "event": "Save",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Dear {{ doc.applicant_name }},\r\n\r\nCongratulations!\r\n\r\nWe are pleased to inform you that your application for the position of **{{ doc.designation or doc.job_title }}** has been **accepted**.\r\nWe appreciate your interest in joining our organization and are excited to move forward with you in the hiring process.\r\nOur HR team will contact you shortly with the next steps, including any required documentation, interview scheduling, or onboarding details.\r\nIf you have any questions, please feel free to contact us.\r\n\r\nWe look forward to welcoming you to our team.\r\n\r\nBest Regards,\r\n**{{ frappe.db.get_single_value(\"Global Defaults\", \"default_company\") or \"HR Team\" }}**",
+ "message_type": "Markdown",
+ "minutes_offset": 0,
+ "modified": "2026-08-23 13:26:13.523673",
+ "modified_by": "Administrator",
+ "module": "Aerofreight",
+ "name": "Job Applicant Approval",
+ "notification_type": "Alert",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "email_id"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "sender": "Notifications AFC",
+ "sender_email": "notifications@aerofrt.com",
+ "subject": "Congratulations! Your Job Application Has Been Accepted"
+}
