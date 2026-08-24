@@ -149,6 +149,12 @@ doctype_js = {
 # 	}
 # }
 
+doc_events = {
+    "Customer": {
+        "validate": "aerofreight.aerofreight.overrides.customer.validate"
+    }
+}
+
 # Scheduled Tasks
 # ---------------
 
@@ -169,6 +175,14 @@ doctype_js = {
 # 		"aerofreight.tasks.monthly"
 # 	],
 # }
+
+scheduler_events = {
+    "cron": {
+        "0 0 * * *": [
+            "aerofreight.aerofreight.api.disable_expired_customers"
+        ]
+    }
+}
 
 # Testing
 # -------
