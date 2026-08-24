@@ -6,6 +6,7 @@ from frappe.desk.doctype.notification_log.notification_log import (
 	get_title,
 	get_title_html,
 )
+from frappe.utils import getdate, today
 
 @frappe.whitelist()
 def get_accounts_manager_for_custodian(custodian):
@@ -240,3 +241,29 @@ def get(args=None):
 		},
 		limit=5,
 	)
+
+def disable_expired_customers():
+    current_date = getdate(today())
+
+    # Get all enabled customers with KYC records
+    customers = frappe.get_all(
+        "Customer",
+        filters={"disabled": 0},
+        fields=["name"]
+    )
+
+    for customer in customers:
+        # Check if any KYC document is expired
+        expired = frappe.db.exists(
+            "KYC",
+            {
+                "parent": customer.name,
+                "parenttype": "Customer",
+                "date": ("<=", current_date)
+            }
+        )
+
+        if expired:
+            frappe.db.set_value("Customer", customer.name, "disabled", 1)
+
+    frappe.db.commit()
