@@ -40,8 +40,7 @@ class AeroSettings(Document):
 				"Asset",
 				filters={
 					"custodian": ["in", employees],
-					"company": row.company,
-					"status": ["in", ["Draft", "Submitted"]]
+					"company": row.company
 				},
 				fields=[
 					"name",
