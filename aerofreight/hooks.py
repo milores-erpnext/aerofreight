@@ -149,11 +149,11 @@ doctype_js = {
 # 	}
 # }
 
-doc_events = {
-    "Customer": {
-        "validate": "aerofreight.aerofreight.overrides.customer.validate"
-    }
-}
+# doc_events = {
+#     "Customer": {
+#         "validate": "aerofreight.aerofreight.overrides.customer.validate"
+#     }
+# }
 
 # Scheduled Tasks
 # ---------------
