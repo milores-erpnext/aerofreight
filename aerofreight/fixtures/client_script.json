@@ -4,6 +4,17 @@
   "doctype": "Client Script",
   "dt": "Asset",
   "enabled": 1,
+  "modified": "2026-08-31 06:07:28.690403",
+  "module": "Aerofreight",
+  "name": "CustodianValidation",
+  "script": "frappe.ui.form.on(\"Asset\", {\n\n    refresh: function(frm) {\n\n        // Only Active employees\n        [\"custodian\", \"custom_custodian2\"].forEach(function(field) {\n\n            frm.set_query(field, function() {\n                return {\n                    filters: {\n                        status: \"Active\"\n                    }\n                };\n            });\n\n        });\n    },\n\n    // Custodian selected\n    custodian: function(frm) {\n\n        // Clear everything if custodian removed\n        if (!frm.doc.custodian) {\n            frm.set_value(\"custom_custodian_name\", \"\");\n            frm.set_value(\"custom_custodian2\", \"\");\n            frm.set_value(\"custom_custodian2_name\", \"\");\n            \n            return;\n        }\n\n        // Prevent duplicate\n        if (\n            frm.doc.custodian === frm.doc.custom_custodian2\n           \n        ) {\n\n            frm.set_value(\"custodian\", \"\");\n            frm.set_value(\"custom_custodian_name\", \"\");\n\n            frappe.msgprint({\n                title: __(\"Duplicate Employee\"),\n                message: __(\"Custodian, Reports To and Account Manager must all be different.\"),\n                indicator: \"red\"\n            });\n\n            return;\n        }\n\n        // Fetch hierarchy from Employee\n        frappe.db.get_value(\"Employee\", frm.doc.custodian, [\n            \"reports_to\",\n        ]).then(r => {\n\n            if (r.message) {\n\n                frm.set_value(\"custom_custodian2\", r.message.reports_to || \"\");\n\n            }\n\n        });\n\n    },\n\n    custom_custodian2: function(frm) {\n\n        if (\n            frm.doc.custom_custodian2 &&\n            (\n                frm.doc.custom_custodian2 === frm.doc.custodian\n               \n            )\n        ) {\n\n            frm.set_value(\"custom_custodian2\", \"\");\n            frm.set_value(\"custom_custodian2_name\", \"\");\n\n            frappe.msgprint({\n                title: __(\"Duplicate Employee\"),\n                message: __(\"Custodian, Reports To and Account Manager must all be different.\"),\n                indicator: \"red\"\n            });\n        }\n\n    },\n\n    validate: function(frm) {\n\n        const employees = [\n            frm.doc.custodian,\n            frm.doc.custom_custodian2\n        ].filter(Boolean);\n\n        if (new Set(employees).size !== employees.length) {\n\n            frappe.throw(__(\"Custodian, Reports To and Account Manager must all be different employees.\"));\n\n        }\n\n    }\n\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Asset",
+  "enabled": 1,
   "modified": "2026-08-21 00:15:23.092722",
   "module": "Aerofreight",
   "name": "QR Code",
