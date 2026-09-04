@@ -180,12 +180,12 @@ scheduler_events = {
     "cron": {
         "0 0 * * *": [
             "aerofreight.aerofreight.api.disable_expired_customers"
-        ],
-        "daily": [
-            "aerofreight.aerofreight.doctype.import_order.import_order.sync_all_tracking_statuses",
-            "aerofreight.tasks.kyc_expiry.send_kyc_expiry_assignments"
         ]
-    }
+    },
+    "daily": [
+        "aerofreight.aerofreight.doctype.import_order.import_order.sync_all_tracking_statuses",
+        "aerofreight.tasks.kyc_expiry.send_kyc_expiry_assignments"
+    ]
 }
 
 # Testing
