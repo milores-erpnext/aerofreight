@@ -267,3 +267,50 @@ def disable_expired_customers():
             frappe.db.set_value("Customer", customer.name, "disabled", 1)
 
     frappe.db.commit()
+	
+import frappe
+from frappe import _
+from frappe.utils import get_url_to_form
+
+
+@frappe.whitelist()
+def reschedule_opportunity(opportunity_name):
+    # Get original opportunity
+    original = frappe.get_doc("Opportunity", opportunity_name)
+
+    # Create duplicate
+    new_doc = frappe.copy_doc(original)
+
+    # Insert new opportunity
+    new_doc.insert(ignore_permissions=True)
+
+    # Optional: Update original opportunity status
+    original.custom_reschedule_check = 1
+    original.save(ignore_permissions=True)
+
+    # Send email
+    if new_doc.custom_assigned_to:
+        frappe.sendmail(
+            recipients=[new_doc.custom_assigned_to],
+            subject=f"Opportunity Rescheduled - {new_doc.name}",
+            message=f"""
+                Dear User,
+
+                A new Opportunity has been created through the reschedule process.
+
+                <b>Customer:</b> {new_doc.customer_name}<br>
+                <b>Opportunity:</b> {new_doc.name}<br>
+                <b>Rescheduled Date:</b> {new_doc.custom_date}<br><br>
+
+                <a href="{get_url_to_form('Opportunity', new_doc.name)}">
+                    Open Opportunity
+                </a>
+
+                <br><br>
+                Thank you.
+            """,
+        )
+
+    frappe.db.commit()
+
+    return new_doc.name
