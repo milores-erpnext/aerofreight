@@ -45,7 +45,8 @@ app_license = "mit"
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_js = {
-    "Asset" : "public/js/asset.js"
+    "Asset" : "public/js/asset.js",
+    "Opportunity" : "public/js/opportunity.js"
     }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -183,7 +184,6 @@ scheduler_events = {
         ]
     },
     "daily": [
-        "aerofreight.aerofreight.doctype.import_order.import_order.sync_all_tracking_statuses",
         "aerofreight.tasks.kyc_expiry.send_kyc_expiry_assignments"
     ]
 }
