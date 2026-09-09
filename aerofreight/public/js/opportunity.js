@@ -28,4 +28,20 @@ frappe.ui.form.on("Opportunity", {
             },
         });
     },
+    
+    refresh(frm) {
+        if (!frm.is_new()) {
+            frm.add_custom_button(
+                __("Timesheet"),
+                () => frm.trigger("make_timesheet"),
+                __("Create")
+            );
+        }
+    },
+
+    make_timesheet(frm) {
+        frappe.new_doc("Timesheet", {
+            customer: frm.doc.party_name
+        });
+    }
 });
