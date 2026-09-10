@@ -27,6 +27,7 @@ app_license = "mit"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/aerofreight/css/aerofreight.css"
 # app_include_js = "/assets/aerofreight/js/aerofreight.js"
+app_include_js = "/assets/aerofreight/js/customer_ledger_summary.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/aerofreight/css/aerofreight.css"
