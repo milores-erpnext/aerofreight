@@ -243,30 +243,30 @@ def get(args=None):
 	)
 
 def disable_expired_customers():
-    current_date = getdate(today())
+	current_date = getdate(today())
 
-    # Get all enabled customers with KYC records
-    customers = frappe.get_all(
-        "Customer",
-        filters={"disabled": 0},
-        fields=["name"]
-    )
+	# Get all enabled customers with KYC records
+	customers = frappe.get_all(
+		"Customer",
+		filters={"disabled": 0},
+		fields=["name"]
+	)
 
-    for customer in customers:
-        # Check if any KYC document is expired
-        expired = frappe.db.exists(
-            "KYC",
-            {
-                "parent": customer.name,
-                "parenttype": "Customer",
-                "date": ("<=", current_date)
-            }
-        )
+	for customer in customers:
+		# Check if any KYC document is expired
+		expired = frappe.db.exists(
+			"KYC",
+			{
+				"parent": customer.name,
+				"parenttype": "Customer",
+				"date": ("<=", current_date)
+			}
+		)
 
-        if expired:
-            frappe.db.set_value("Customer", customer.name, "disabled", 1)
+		if expired:
+			frappe.db.set_value("Customer", customer.name, "disabled", 1)
 
-    frappe.db.commit()
+	frappe.db.commit()
 	
 import frappe
 from frappe import _
@@ -275,42 +275,45 @@ from frappe.utils import get_url_to_form
 
 @frappe.whitelist()
 def reschedule_opportunity(opportunity_name):
-    # Get original opportunity
-    original = frappe.get_doc("Opportunity", opportunity_name)
+	# Get original opportunity
+	original = frappe.get_doc("Opportunity", opportunity_name)
 
-    # Create duplicate
-    new_doc = frappe.copy_doc(original)
+	# Create duplicate
+	new_doc = frappe.copy_doc(original)
+	new_doc.custom_date = original.custom_reschedule
+	new_doc.custom_reschedule_check = 0
+	new_doc.custom_reschedule = None
 
-    # Insert new opportunity
-    new_doc.insert(ignore_permissions=True)
+	# Insert new opportunity
+	new_doc.insert(ignore_permissions=True)
 
-    # Optional: Update original opportunity status
-    original.custom_reschedule_check = 1
-    original.save(ignore_permissions=True)
+	# Optional: Update original opportunity status
+	original.custom_reschedule_check = 1
+	original.save(ignore_permissions=True)
 
-    # Send email
-    if new_doc.custom_assigned_to:
-        frappe.sendmail(
-            recipients=[new_doc.custom_assigned_to],
-            subject=f"Opportunity Rescheduled - {new_doc.name}",
-            message=f"""
-                Dear User,
+	# Send email
+	if new_doc.custom_assigned_to:
+		frappe.sendmail(
+			recipients=[new_doc.custom_assigned_to],
+			subject=f"Opportunity Rescheduled - {new_doc.name}",
+			message=f"""
+				Dear User,
 
-                A new Opportunity has been created through the reschedule process.
+				A new Opportunity has been created through the reschedule process.
 
-                <b>Customer:</b> {new_doc.customer_name}<br>
-                <b>Opportunity:</b> {new_doc.name}<br>
-                <b>Rescheduled Date:</b> {new_doc.custom_date}<br><br>
+				<b>Customer:</b> {new_doc.customer_name}<br>
+				<b>Opportunity:</b> {new_doc.name}<br>
+				<b>Rescheduled Date:</b> {new_doc.custom_date}<br><br>
 
-                <a href="{get_url_to_form('Opportunity', new_doc.name)}">
-                    Open Opportunity
-                </a>
+				<a href="{get_url_to_form('Opportunity', new_doc.name)}">
+					Open Opportunity
+				</a>
 
-                <br><br>
-                Thank you.
-            """,
-        )
+				<br><br>
+				Thank you.
+			""",
+		)
 
-    frappe.db.commit()
+	frappe.db.commit()
 
-    return new_doc.name
+	return new_doc.name
