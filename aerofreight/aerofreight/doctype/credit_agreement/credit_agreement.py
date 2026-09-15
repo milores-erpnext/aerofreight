@@ -6,7 +6,7 @@ from frappe.model.document import Document
 
 
 class CreditAgreement(Document):
-    def validate(self):
+    def on_submit(self):
         self.update_customer_credit_limit()
 
     def update_customer_credit_limit(self):
