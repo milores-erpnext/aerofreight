@@ -12,6 +12,7 @@
   "customer_name",
   "customer_code",
   "email",
+  "company",
   "column_break_rlaa",
   "address_html",
   "mobile",
@@ -197,13 +198,19 @@
    "fieldtype": "Link",
    "label": "Designation",
    "options": "Designation"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-19 14:48:24.878886",
+ "modified": "2026-09-15 12:12:06.832862",
  "modified_by": "Administrator",
  "module": "Aerofreight",
  "name": "Credit Agreement",
