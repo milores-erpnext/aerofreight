@@ -16,10 +16,12 @@ def send_kyc_expiry_assignments():
                 employee_doc = frappe.get_doc("Employee",emp)
                 if employee_doc.user_id:
                     get_kyc_expiry_todos(employee_doc.user_id,customer_doc.custom_kyc[0].name,customer_doc.name)
-                if employee_doc.reports_to:
-                    reports_to_doc = frappe.get_doc("Employee",employee_doc.reports_to)
-                    if reports_to_doc.user_id:
-                        get_kyc_expiry_todos(reports_to_doc.user_id,customer_doc.custom_kyc[0].name,customer_doc.name)
+                # if employee_doc.reports_to:
+                #     reports_to_doc = frappe.get_doc("Employee",employee_doc.reports_to)
+                #     if reports_to_doc.user_id:
+                #         get_kyc_expiry_todos(reports_to_doc.user_id,customer_doc.custom_kyc[0].name,customer_doc.name)
+                emp_mail = frappe.db.get_value("Address", {"address_title": customer.name}, "email_id")
+                get_kyc_expiry_todos(emp_mail,customer_doc.custom_kyc[0].name,customer_doc.name)
                 if employee_doc.company:
                     aero_mail_id = frappe.get_value("Asset Manager Alignment",{"company": employee_doc.company},"user")
                     if aero_mail_id:
