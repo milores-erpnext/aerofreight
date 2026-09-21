@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-08-24 12:12:53.238977",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "description",
+  "income",
+  "expenses",
+  "profit",
+  "_of_profit"
+ ],
+ "fields": [
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fieldname": "income",
+   "fieldtype": "Float",
+   "label": "Income"
+  },
+  {
+   "fieldname": "expenses",
+   "fieldtype": "Float",
+   "label": "Expenses"
+  },
+  {
+   "fieldname": "profit",
+   "fieldtype": "Float",
+   "label": "Profit"
+  },
+  {
+   "fieldname": "_of_profit",
+   "fieldtype": "Percent",
+   "label": "% of Profit"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-24 12:15:38.519420",
+ "modified_by": "Administrator",
+ "module": "Aerofreight",
+ "name": "Project Estimation Summary",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
