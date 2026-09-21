@@ -135,6 +135,7 @@
    "search_index": 1
   },
   {
+   "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
@@ -147,8 +148,9 @@
   },
   {
    "fieldname": "country",
-   "fieldtype": "Data",
-   "label": "Country"
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country"
   },
   {
    "fieldname": "costing_method",
@@ -480,7 +482,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-09-21 12:14:20.539537",
+ "modified": "2026-09-21 12:26:36.500159",
  "modified_by": "Administrator",
  "module": "Aerofreight",
  "name": "Project Estimation",
