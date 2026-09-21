@@ -2,6 +2,72 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
+  "dt": "Project Estimation",
+  "enabled": 1,
+  "modified": "2026-09-21 13:25:15.532680",
+  "module": "Aerofreight",
+  "name": "BOQCustomerCountry",
+  "script": "frappe.ui.form.on(\"Project Estimation\", {\r\n    customer(frm) {\r\n        if (!frm.doc.customer) {\r\n            frm.set_value(\"country\", \"\");\r\n            return;\r\n        }\r\n\r\n        frappe.call({\r\n            method: \"frappe.contacts.doctype.address.address.get_default_address\",\r\n            args: {\r\n                doctype: \"Customer\",\r\n                name: frm.doc.customer\r\n            },\r\n            callback: function(r) {\r\n                if (r.message) {\r\n                    frappe.db.get_value(\r\n                        \"Address\",\r\n                        r.message,\r\n                        \"country\",\r\n                        function(res) {\r\n                            if (res) {\r\n                                frm.set_value(\"country\", res.country);\r\n                            }\r\n                        }\r\n                    );\r\n                } else {\r\n                    frm.set_value(\"country\", \"\");\r\n                }\r\n            }\r\n        });\r\n    }\r\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Project Estimation",
+  "enabled": 1,
+  "modified": "2026-09-21 13:25:01.555549",
+  "module": "Aerofreight",
+  "name": "BOQCustomerAddress",
+  "script": "frappe.ui.form.on(\"BOQMATERIAL\", {\r\n    part_no(frm, cdt, cdn) {\r\n        let row = locals[cdt][cdn];\r\n\r\n        if (!row.part_no) return;\r\n\r\n        frappe.db.get_doc(\"Item\", row.part_no).then(item => {\r\n\r\n            frappe.model.set_value(cdt, cdn, \"description\",\r\n                item.description || item.item_name\r\n            );\r\n\r\n            frappe.model.set_value(cdt, cdn, \"unit\", item.stock_uom);\r\n\r\n        });\r\n    }\r\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Project Estimation",
+  "enabled": 1,
+  "modified": "2026-09-21 13:24:50.244423",
+  "module": "Aerofreight",
+  "name": "RecaculateAMountOfBOQItem",
+  "script": "frappe.ui.form.on(\"Project Estimation\", {\r\n\r\n    costing_method(frm) {\r\n        recalculate_all_rows(frm);\r\n    }\r\n\r\n});\r\n\r\n\r\nfrappe.ui.form.on(\"BOQMATERIAL\", {\r\n\r\n    part_no(frm, cdt, cdn) {\r\n\r\n        let row = locals[cdt][cdn];\r\n\r\n        if (!row.part_no) return;\r\n\r\n        frappe.db.get_doc(\"Item\", row.part_no).then(item => {\r\n            frappe.model.set_value(\r\n                cdt,\r\n                cdn,\r\n                \"description\",\r\n                item.description || item.item_name\r\n            );\r\n            frappe.model.set_value(\r\n                cdt,\r\n                cdn,\r\n                \"unit\",\r\n                item.stock_uom\r\n            );\r\n            fetch_item_cost(frm, cdt, cdn);\r\n\r\n        });\r\n\r\n    },\r\n\r\n    quantity(frm, cdt, cdn) {\r\n        calculate_amount(cdt, cdn);\r\n    },\r\n\r\n    unit_cost(frm, cdt, cdn) {\r\n        calculate_amount(cdt, cdn);\r\n    },\r\n\r\n    unit_costlc(frm, cdt, cdn) {\r\n        calculate_amount(cdt, cdn);\r\n    }\r\n\r\n});\r\n\r\n\r\n\r\nfunction recalculate_all_rows(frm) {\r\n\r\n    (frm.doc.material_charges || []).forEach(function(row) {\r\n\r\n        fetch_item_cost(frm, row.doctype, row.name);\r\n\r\n    });\r\n\r\n}\r\n\r\n\r\n\r\nfunction fetch_item_cost(frm, cdt, cdn) {\r\n\r\n    let row = locals[cdt][cdn];\r\n\r\n    if (!row.part_no)\r\n        return;\r\n\r\n    switch (frm.doc.costing_method) {\r\n\r\n        case \"Standard Rate\":\r\n\r\n            frappe.db.get_value(\r\n                \"Item\",\r\n                row.part_no,\r\n                \"standard_rate\"\r\n            ).then(r => {\r\n\r\n                let rate = flt(r.message.standard_rate);\r\n\r\n                frappe.model.set_value(cdt, cdn, \"unit_cost\", rate);\r\n                frappe.model.set_value(cdt, cdn, \"unit_costlc\", rate);\r\n\r\n                calculate_amount(cdt, cdn);\r\n\r\n            });\r\n\r\n            break;\r\n\r\n\r\n        case \"Manual\":\r\n            calculate_amount(cdt, cdn);\r\n\r\n            break;\r\n\r\n\r\n  case \"Last Purchase Rate\":\r\n\r\n    frappe.db.get_list(\"Purchase Receipt Item\", {\r\n    filters: {\r\n        item_code: row.part_no,\r\n        docstatus: 1\r\n    },\r\n    fields: [\r\n        \"parent\",\r\n        \"rate\",\r\n        \"base_rate\",\r\n        \"amount\",\r\n        \"base_amount\"\r\n    ],\r\n    order_by: \"creation desc\",\r\n    limit: 1\r\n}).then(r => {\r\n   console.log(r);\r\n});\r\n\r\n    break;\r\n\r\n\r\n        case \"Valuation Rate\":\r\n\r\n    frappe.db.get_list(\"Bin\", {\r\n        filters: {\r\n            item_code: row.part_no,\r\n            company: frm.doc.company\r\n        },\r\n        fields: [\"valuation_rate\"],\r\n        limit: 1\r\n    }).then(r => {\r\n\r\n        let rate = (r.length > 0) ? flt(r[0].valuation_rate) : 0;\r\n\r\n        frappe.model.set_value(cdt, cdn, \"unit_cost\", rate);\r\n        frappe.model.set_value(cdt, cdn, \"unit_costlc\", rate);\r\n\r\n        calculate_amount(cdt, cdn);\r\n\r\n    });\r\n\r\n    break;\r\n\r\n\r\n        case \"Price List\":\r\n\r\n    frappe.db.get_list(\"Item Price\", {\r\n        filters: {\r\n            item_code: row.part_no,\r\n            price_list: frm.doc.buying_price_list\r\n        },\r\n        fields: [\"price_list_rate\"],\r\n        limit: 1\r\n    }).then(r => {\r\n\r\n        let rate = (r.length > 0) ? flt(r[0].price_list_rate) : 0;\r\n\r\n        frappe.model.set_value(cdt, cdn, \"unit_cost\", rate);\r\n        frappe.model.set_value(cdt, cdn, \"unit_costlc\", rate);\r\n\r\n        calculate_amount(cdt, cdn);\r\n\r\n    });\r\n\r\n    break;\r\n\r\n    }\r\n\r\n}\r\n\r\n\r\n\r\nfunction calculate_amount(cdt, cdn) {\r\n\r\n    let row = locals[cdt][cdn];\r\n\r\n    let qty = flt(row.quantity);\r\n    let rate = flt(row.unit_costlc);\r\n\r\n    frappe.model.set_value(\r\n        cdt,\r\n        cdn,\r\n        \"amountlc\",\r\n        qty * rate\r\n    );\r\n\r\n}",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Project Estimation",
+  "enabled": 1,
+  "modified": "2026-09-21 13:24:41.906398",
+  "module": "Aerofreight",
+  "name": "OnlyServiceItemForBOQ",
+  "script": "frappe.ui.form.on(\"Project Estimation\", {\r\n    setup(frm) {\r\n        frm.set_query(\"description\", \"freight_charges\", function() {\r\n            return {\r\n                filters: {\r\n                    item_group: \"Services\",\r\n                    disabled: 0\r\n                }\r\n            };\r\n        });\r\n    }\r\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Project Estimation",
+  "enabled": 1,
+  "modified": "2026-09-21 13:24:33.569641",
+  "module": "Aerofreight",
+  "name": "SumOfFreightofBOQ",
+  "script": "function calculate_totals(frm) {\r\n\r\n    // Material Total\r\n    let material_total = 0;\r\n    (frm.doc.boqmaterialcharges || []).forEach(row => {\r\n        material_total += flt(row.amountlc);\r\n    });\r\n    frm.set_value(\"total_items\", material_total);\r\n\r\n    // Freight Total\r\n    let freight_total = 0;\r\n    (frm.doc.freight_charges || []).forEach(row => {\r\n        freight_total += flt(row.amountlc);\r\n    });\r\n    frm.set_value(\"total_freight\", freight_total);\r\n    frm.set_value(\"5\", freight_total + material_total );\r\n    //frm.set_value(\"4\", freight_total + material_total );\r\n    // Local Charges Total\r\n    let local_total = 0;\r\n    (frm.doc.local_charges || []).forEach(row => {\r\n        local_total += flt(row.amountlc);\r\n    });\r\n    frm.set_value(\"total_local_charges\", local_total);\r\n    frm.set_value(\"6\", local_total);\r\n    // Site Charges Total\r\n    let site_total = 0;\r\n    (frm.doc.site_charges || []).forEach(row => {\r\n        site_total += flt(row.amountlc);\r\n    });\r\n    frm.set_value(\"total_site_charges\", site_total);\r\n    frm.set_value(\"7\", site_total);\r\n    // Manpower Total\r\n    let manpower_total = 0;\r\n    (frm.doc.manpower_charges || []).forEach(row => {\r\n        manpower_total += flt(row.amountlc);\r\n    });\r\n    frm.set_value(\"total_manpower\", manpower_total);\r\n\r\n    // Refresh calculated fields\r\n    frm.refresh_fields([\r\n        \"total_items\",\r\n        \"total_freight\",\r\n        \"total_local_charges\",\r\n        \"6\",\r\n        \"7\",\r\n        \"8\",\r\n        \"4\",\r\n        \"14\",\r\n        \"float_asas\",\r\n        \"total_site_charges\",\r\n        \"total_manpower\"\r\n    ]);\r\n    frm.set_value(\"8\",site_total +local_total+ freight_total+ material_total );\r\n    let total_expense =\r\n        material_total +\r\n        freight_total +\r\n        local_total +\r\n        site_total;\r\n        \r\n     let percent = flt(frm.doc.profit_percent);\r\n\r\n    let profit = total_expense * percent / 100;\r\n    frm.set_value(\"14\", profit);\r\n    \r\n    let income = total_expense+profit;\r\n    frm.set_value(\"float_asas\", income);\r\n    frm.set_value(\"4\", income);\r\n}\r\n\r\n\r\n// Parent\r\nfrappe.ui.form.on(\"Project Estimation\", {\r\n    refresh(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n     profit_percent(frm) {\r\n        calculate_totals(frm);\r\n    }\r\n})\r\n \r\n\r\n// Material Charges\r\nfrappe.ui.form.on(\"BOQMATERIAL\", {\r\n\r\n    amountlc(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    boqmaterialcharges_add(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    boqmaterialcharges_remove(frm) {\r\n        calculate_totals(frm);\r\n    }\r\n\r\n});\r\n\r\n\r\n// Freight Charges\r\nfrappe.ui.form.on(\"BOQFRCHARG\", {\r\n\r\n    amountlc(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    freight_charges_add(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    freight_charges_remove(frm) {\r\n        calculate_totals(frm);\r\n    }\r\n\r\n});\r\n\r\n\r\n// Local Charges\r\nfrappe.ui.form.on(\"BOQLOCALCHARG\", {\r\n\r\n    amountlc(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    local_charges_add(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    local_charges_remove(frm) {\r\n        calculate_totals(frm);\r\n    }\r\n\r\n});\r\n\r\n\r\n// Site Charges\r\nfrappe.ui.form.on(\"BOQSITECHARG\", {\r\n\r\n    amountlc(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    site_charges_add(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    site_charges_remove(frm) {\r\n        calculate_totals(frm);\r\n    }\r\n\r\n});\r\n\r\n\r\n// Manpower Charges\r\nfrappe.ui.form.on(\"BOQMANPCHARGES\", {\r\n\r\n    amountlc(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    manpower_charges_add(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n\r\n    manpower_charges_remove(frm) {\r\n        calculate_totals(frm);\r\n    }\r\n\r\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Project Estimation",
+  "enabled": 1,
+  "modified": "2026-09-21 13:23:51.293243",
+  "module": "Aerofreight",
+  "name": "Creation of Sales order from BOQ",
+  "script": "frappe.ui.form.on('Project Estimation', {\r\n    refresh: function(frm) {\r\n        // Show the button under the 'Create' menu only on submitted documents (docstatus === 1)\r\n        if (frm.doc.docstatus === 1) {\r\n            frm.add_custom_button(__('Sales Order'), function() {\r\n                \r\n                // Map Material Charges table rows to Sales Order Items\r\n                let items = [];\r\n                if (frm.doc.boqmaterialcharges && frm.doc.boqmaterialcharges.length > 0) {\r\n                    items = frm.doc.boqmaterialcharges.map(row => {\r\n                        return {\r\n                            item_code: row.part_no,\r\n                            description: row.description,\r\n                            qty: row.quantity,\r\n                            uom: row.unit,\r\n                            rate: row.unit_cost\r\n                        };\r\n                    });\r\n                }\r\n\r\n                // Route to a new Sales Order pre-filled with BOQ data\r\n                frappe.route_options = {\r\n                    customer: frm.doc.customer,\r\n                    company: frm.doc.company,\r\n                    project: frm.doc.project,\r\n                    items: items,\r\n                    // Linking the BOQ reference field on Sales Order (if created in Step 2)\r\n                    boq_reference: frm.doc.name\r\n                };\r\n\r\n                frappe.new_doc('Sales Order');\r\n\r\n            }, __('Create'));\r\n        }\r\n    }\r\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
   "dt": "Asset",
   "enabled": 1,
   "modified": "2026-08-31 06:07:28.690403",
