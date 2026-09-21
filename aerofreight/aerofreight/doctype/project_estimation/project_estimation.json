@@ -1,0 +1,508 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "autoname": "PE-.YYYY.-.#####",
+ "creation": "2026-07-24 18:20:12.603268",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_mlyw",
+  "company",
+  "customer",
+  "customername",
+  "customer_address",
+  "column_break_hcpu",
+  "project",
+  "amended_from",
+  "date",
+  "tel",
+  "country",
+  "costing_method",
+  "section_break_xzld",
+  "boqmaterialcharges",
+  "section_break_tylc",
+  "column_break_pgou",
+  "column_break_khru",
+  "column_break_dohg",
+  "total_items",
+  "freight_charges_section",
+  "freight_charges",
+  "section_break_asjm",
+  "column_break_supg",
+  "column_break_ujat",
+  "column_break_jzqf",
+  "total_freight",
+  "section_break_gtbm",
+  "local_charges",
+  "section_break_hcap",
+  "column_break_oqjb",
+  "column_break_dizq",
+  "column_break_sgmi",
+  "total_local_charges",
+  "section_break_lovz",
+  "site_charges",
+  "section_break_odcl",
+  "column_break_xope",
+  "column_break_dmlp",
+  "column_break_njrg",
+  "total_site_charges",
+  "section_break_vqfg",
+  "manpower_charges",
+  "section_break_rxyy",
+  "column_break_gfrd",
+  "column_break_kdnn",
+  "column_break_nrhl",
+  "total_manpower",
+  "section_break_zsik",
+  "boq_summary",
+  "section_break_hqok",
+  "description",
+  "income",
+  "expense",
+  "after_inst",
+  "total",
+  "column_break_gzyd",
+  "incomelc",
+  "float_asas",
+  "2",
+  "3",
+  "4",
+  "column_break_ythk",
+  "expenselc",
+  "5",
+  "6",
+  "7",
+  "8",
+  "column_break_tsiv",
+  "profit_lc",
+  "11",
+  "12",
+  "13",
+  "14",
+  "column_break_exxa",
+  "profitlc",
+  "profit_percent"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_mlyw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customername",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fetch_from": "customer.customer_primary_address",
+   "fieldname": "customer_address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "column_break_hcpu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Project Estimation",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fetch_from": "customer.mobile_no",
+   "fieldname": "tel",
+   "fieldtype": "Data",
+   "label": "Tel"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country"
+  },
+  {
+   "fieldname": "costing_method",
+   "fieldtype": "Select",
+   "label": "Costing Method",
+   "options": "Last Purchase Rate\nValuation Rate\nPrice List"
+  },
+  {
+   "fieldname": "section_break_xzld",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "boqmaterialcharges",
+   "fieldtype": "Table",
+   "label": "Material Charges",
+   "options": "BOQMATERIAL"
+  },
+  {
+   "fieldname": "section_break_tylc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_pgou",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_khru",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dohg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_items",
+   "fieldtype": "Float",
+   "label": "Total Items",
+   "read_only": 1
+  },
+  {
+   "fieldname": "freight_charges_section",
+   "fieldtype": "Section Break",
+   "label": "Freight Charges"
+  },
+  {
+   "fieldname": "freight_charges",
+   "fieldtype": "Table",
+   "label": "Freight Charges",
+   "options": "BOQFRCHARG"
+  },
+  {
+   "fieldname": "section_break_asjm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_supg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ujat",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jzqf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_freight",
+   "fieldtype": "Float",
+   "label": "Total Freight"
+  },
+  {
+   "fieldname": "section_break_gtbm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "local_charges",
+   "fieldtype": "Table",
+   "label": "Local Charges",
+   "options": "BOQLOCALCHARG"
+  },
+  {
+   "fieldname": "section_break_hcap",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_oqjb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dizq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_sgmi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_local_charges",
+   "fieldtype": "Float",
+   "label": "Total Local Charges"
+  },
+  {
+   "fieldname": "section_break_lovz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "site_charges",
+   "fieldtype": "Table",
+   "label": "Site Charges",
+   "options": "BOQSITECHARG"
+  },
+  {
+   "fieldname": "section_break_odcl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_xope",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dmlp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_njrg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_site_charges",
+   "fieldtype": "Float",
+   "label": "Total Site Charges"
+  },
+  {
+   "fieldname": "section_break_vqfg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "manpower_charges",
+   "fieldtype": "Table",
+   "label": "Manpower Charges",
+   "options": "BOQMANPCHARGES"
+  },
+  {
+   "fieldname": "section_break_rxyy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_gfrd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_kdnn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_nrhl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_manpower",
+   "fieldtype": "Float",
+   "label": "Total Manpower"
+  },
+  {
+   "fieldname": "section_break_zsik",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "boq_summary",
+   "fieldtype": "Table",
+   "label": "Project Estimation Summary",
+   "options": "Project Estimation Summary"
+  },
+  {
+   "columns": 5,
+   "fieldname": "section_break_hqok",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Description"
+  },
+  {
+   "fieldname": "income",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "After Material"
+  },
+  {
+   "fieldname": "expense",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Local Chares"
+  },
+  {
+   "fieldname": "after_inst",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "After Inst."
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Total"
+  },
+  {
+   "fieldname": "column_break_gzyd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "incomelc",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "IncomeLC"
+  },
+  {
+   "fieldname": "float_asas",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "After Material Income"
+  },
+  {
+   "fieldname": "2",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "2"
+  },
+  {
+   "fieldname": "3",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "3"
+  },
+  {
+   "fieldname": "4",
+   "fieldtype": "Float",
+   "label": "Total Income "
+  },
+  {
+   "fieldname": "column_break_ythk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "expenselc",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "ExpenseLC"
+  },
+  {
+   "fieldname": "5",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "After Material Expense "
+  },
+  {
+   "fieldname": "6",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "6"
+  },
+  {
+   "fieldname": "7",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "7"
+  },
+  {
+   "fieldname": "8",
+   "fieldtype": "Float",
+   "label": "Total Expense ",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_tsiv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "profit_lc",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Profit LC"
+  },
+  {
+   "fieldname": "11",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "11"
+  },
+  {
+   "fieldname": "12",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "12"
+  },
+  {
+   "fieldname": "13",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "13"
+  },
+  {
+   "fieldname": "14",
+   "fieldtype": "Float",
+   "label": "Total profit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_exxa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "profitlc",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "ProfitLC"
+  },
+  {
+   "fieldname": "profit_percent",
+   "fieldtype": "Percent",
+   "label": "profit percent",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-09-21 08:37:41.119825",
+ "modified_by": "Administrator",
+ "module": "Aerofreight",
+ "name": "Project Estimation",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
