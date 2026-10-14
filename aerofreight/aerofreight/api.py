@@ -317,3 +317,42 @@ def reschedule_opportunity(opportunity_name):
 	frappe.db.commit()
 
 	return new_doc.name
+
+@frappe.whitelist()
+def custom_aero_cancel_payment_entry(name, status):
+	doc = frappe.get_doc("Payment Entry", name)
+
+	if doc.docstatus != 1:
+		frappe.throw("Only submitted document can be cancelled")
+
+	# Update cheque status
+	if doc.cheque_book_leave_ref:
+		cheque_doc = frappe.get_doc("Cheque Book Leave", doc.cheque_book_leave_ref)
+		
+		if status == "Unused":
+			cheque_doc.status = "Unused"
+			cheque_doc.party_type = ""
+			cheque_doc.party = ""
+			cheque_doc.paid_amount = ""
+			cheque_doc.payment_entry = ""
+			cheque_doc.date_used = ""
+			
+		elif status == "Cancelled":
+			cheque_doc.status = "Cancelled"
+
+		cheque_doc.save()
+
+	# Allow cancel
+	frappe.flags.allow_custom_cancel = True
+
+	doc.cancel()
+	
+	if doc.workflow_state != "Cancelled":
+		frappe.db.set_value(
+			"Payment Entry",
+			doc.name,
+			"workflow_state",
+			"Cancelled"
+		)
+
+	return True

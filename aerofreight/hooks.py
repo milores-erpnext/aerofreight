@@ -50,6 +50,9 @@ doctype_js = {
     "Opportunity" : "public/js/opportunity.js"
     }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {
+    "Purchase Order" : "public/js/purchase_order_list.js"
+    }
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -209,7 +212,8 @@ scheduler_events = {
 # 	"frappe.desk.doctype.event.event.get_events": "aerofreight.event.get_events"
 # }
 override_whitelisted_methods = {
-	"frappe.desk.form.assign_to.add": "aerofreight.aerofreight.api.add"
+	"frappe.desk.form.assign_to.add": "aerofreight.aerofreight.api.add",
+    "cheque_management.cheque_management.doc_event.payment_entry.custom_cancel_payment_entry": "aerofreight.aerofreight.api.custom_aero_cancel_payment_entry"
 }
 #
 # each overriding function accepts a `data` argument;
