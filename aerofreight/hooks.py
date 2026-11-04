@@ -267,18 +267,6 @@ fixtures = [
     {
         "dt": "Client Script",
         "filters": [["module", "=", "Aerofreight"]]
-    },
-    {
-        "doctype": "Workflow",
-        "filters": [
-            ["name", "in", ["Credit Agreement"]]
-        ]
-    },
-    {
-        "doctype": "Workflow State"
-    },
-    {
-        "doctype": "Workflow Action"
     }
 ]
 
