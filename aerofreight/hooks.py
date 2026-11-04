@@ -271,7 +271,7 @@ fixtures = [
     {
         "doctype": "Workflow",
         "filters": [
-            ["name", "in", ["Credit Agreement","Purchase Order Approval"]]
+            ["name", "in", ["Credit Agreement"]]
         ]
     },
     {
