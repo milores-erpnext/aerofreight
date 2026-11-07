@@ -47,7 +47,8 @@ app_include_js = "/assets/aerofreight/js/customer_ledger_summary.js"
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_js = {
     "Asset" : "public/js/asset.js",
-    "Opportunity" : "public/js/opportunity.js"
+    "Opportunity" : "public/js/opportunity.js",
+    "Sales Invoice" : "public/js/sales_invoice.js"
     }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
