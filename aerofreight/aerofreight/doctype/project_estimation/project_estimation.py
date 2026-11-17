@@ -29,10 +29,15 @@ class ProjectEstimation(Document):
 
 		self.set("14", total_income - total_expense)
 
-		if total_income:
-			self.profit_percent = flt(((self.get("14") / total_income) * 100),2)
+		if total_expense:
+			self.profit_percent = flt(((self.get("14") / total_expense) * 100),2)
 		else:
 			self.profit_percent = 0
+
+		if total_income:
+			self.profit_margin = flt(((self.get("14") / total_income) * 100),2)
+		else:
+			self.profit_margin = 0
 
 	def on_submit(self):
 		frappe.db.set_value("Project", self.project, "estimated_costing", self.get("8"))
