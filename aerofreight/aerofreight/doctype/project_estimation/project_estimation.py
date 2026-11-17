@@ -3,7 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
-
+from frappe.utils import flt
 
 class ProjectEstimation(Document):
 	def validate(self):
@@ -30,7 +30,7 @@ class ProjectEstimation(Document):
 		self.set("14", total_income - total_expense)
 
 		if total_income:
-			self.profit_percent = (self.get("14") / total_expense) * 100
+			self.profit_percent = flt(((self.get("14") / total_income) * 100),2)
 		else:
 			self.profit_percent = 0
 
