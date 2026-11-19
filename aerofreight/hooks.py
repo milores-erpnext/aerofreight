@@ -48,7 +48,8 @@ app_include_js = "/assets/aerofreight/js/customer_ledger_summary.js"
 doctype_js = {
     "Asset" : "public/js/asset.js",
     "Opportunity" : "public/js/opportunity.js",
-    "Sales Invoice" : "public/js/sales_invoice.js"
+    "Sales Invoice" : "public/js/sales_invoice.js",
+    "Landed Cost Voucher" : "public/js/landed_cost_voucher.js",
     }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -213,6 +214,12 @@ override_whitelisted_methods = {
 	"frappe.desk.form.assign_to.add": "aerofreight.aerofreight.api.add",
     "cheque_management.cheque_management.doc_event.payment_entry.custom_cancel_payment_entry": "aerofreight.aerofreight.api.custom_aero_cancel_payment_entry"
 }
+
+override_doctype_class = {
+    "Landed Cost Voucher":
+        "aerofreight.aerofreight.overrides.landed_cost_voucher.CustomLandedCostVoucher"
+}
+
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
