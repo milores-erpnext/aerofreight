@@ -7,6 +7,9 @@ from frappe.desk.doctype.notification_log.notification_log import (
 	get_title_html,
 )
 from frappe.utils import getdate, today
+import io, zipfile, json
+from frappe.utils.pdf import get_pdf
+
 
 @frappe.whitelist()
 def get_accounts_manager_for_custodian(custodian):
@@ -356,3 +359,16 @@ def custom_aero_cancel_payment_entry(name, status):
 		)
 
 	return True
+
+@frappe.whitelist()
+def download_invoices_zip(names, print_format=None, letterhead=None):
+    names = json.loads(names)
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        for n in names:
+            frappe.has_permission("Sales Invoice", "print", n, throw=True)
+            html = frappe.get_print("Sales Invoice", n, print_format=print_format, letterhead=letterhead)
+            z.writestr(f"{n}.pdf", get_pdf(html))
+    frappe.local.response.filename = "sales_invoices.zip"
+    frappe.local.response.filecontent = buf.getvalue()
+    frappe.local.response.type = "download"
